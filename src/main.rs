@@ -1,60 +1,89 @@
-//use std::fs;
 use std::fs::File;
-use std::io::{self, prelude::*, BufReader};
-// use std::io::BufferedReader;
-// use std::io::{stdout, Write};
+use std::io::{prelude::*, BufReader};
+use clap::Parser;
+
+#[derive(Parser, Debug, Clone)]
+#[command(author, version, about, long_about = None)]
+struct Args {
+   /// Day of the AOC to run
+   #[arg(short, long, default_value_t = 1)]
+   day: u8,
+
+   /// Part of the puzzle to run for given Day
+   #[arg(short, long, default_value_t = 1)]
+   part: u8,
+
+   /// Use this flag to run with sample input
+   #[arg(short, long, required = false)]
+   sample: bool,
+}
+
 
 fn main() {
-    /*
-    let input_data = fs::read_to_string("inputs/day1/part1.txt")
-        .expect("Should have been able to read the file");
-    */
 
-    let file = File::open("inputs/day1/part1.txt").expect("Cannot open input file");
+    let args = Args::parse();
+    dbg!(&args);
+
+    select(args.clone());
+}
+
+fn select(args: Args) {
+    match args.day {
+
+        1 => day1(args.clone()),
+        _ => println!("bad value for day"),
+
+    }
+}
+
+
+fn day1(args: Args) {
+
+    let file_path = format!("inputs/day{}/part{}.txt", args.day, args.part);
+    let file = File::open(file_path).expect("Cannot open input file");
     let reader = BufReader::new(file);
 
-    // let mut all_elves : Vec::<Vec> = Vec::new();
-    // let mut current_elf : Vec<str> = Vec::new();
-
     let mut all_elves = Vec::new();
-    let mut current_elf: Vec<u32> = Vec::new();
+    let mut all_elf_totals = Vec::new();
+    let mut current_elf: Vec<i32> = Vec::new();
 
     for line in reader.lines() {
-        // println!("{}", line.expect("Cannot read line from buffer."));
-        if line.as_ref().expect("equality fail").eq("") {
-            // this line is empty, new vector please
-            // current_elf = vec![];
-            // println!("this is a blank line")
 
+        if line.as_ref().expect("string equality fail").eq("") {
             all_elves.push(current_elf);
             current_elf = Vec::new();
         } else {
             let thisline = format!("{}",line.expect("this should be a string"));
-            current_elf.push(thisline.parse::<u32>().unwrap());
-
-            // println!("{}", line.expect("Cannot read line from buffer."));
+            current_elf.push(thisline.parse::<i32>().unwrap());
         }
+
     }
 
-    let mut peak_calories = 0;
 
     for elf in all_elves {
-        // println!("this is an elf");
 
-        let mut total: u32 = 0;
+        let mut total: i32 = 0;
 
         for i in elf.iter() {
             total += i;
         }
 
-        if total > peak_calories {
-            peak_calories = total
-        }
+        all_elf_totals.push(total);
 
     }
 
-    println!("{}", peak_calories);
+    all_elf_totals.sort();
 
-//    println!("Input data:\n{input_data}");
+    let elf_quantity = all_elf_totals.len();
+
+    let top_three_elf_totals = all_elf_totals.get(elf_quantity - 1).expect("there should be an integer here") +
+        all_elf_totals.get(elf_quantity - 2).expect("there should be an integer here") +
+        all_elf_totals.get(elf_quantity - 3).expect("there should be an integer here");
+
+    println!("top elf total: {:?}",all_elf_totals.get(elf_quantity - 1).expect("there should be an integer here"));
+    println!("top three elf totals: {:?}", top_three_elf_totals);
+
+
 }
+
 
