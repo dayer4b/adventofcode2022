@@ -74,13 +74,7 @@ fn day2_part2_values(code: &str) -> i32 {
 
 fn day2(args: Args) {
 
-    // let mut file_path = format!("inputs/day{}/part{}.txt", args.day, args.part);
-    let mut file_path = format!("inputs/day{}/part1.txt", args.day);
-    if args.sample {
-        file_path = format!("inputs/day{}/sample.txt", args.day);
-    }
-    let file = File::open(file_path).expect("Cannot open input file");
-    let reader = BufReader::new(file);
+    let reader = get_input(args.clone());
 
     let mut total:i32 = 0;
 
@@ -102,11 +96,18 @@ fn day2(args: Args) {
 
 }
 
+fn get_input(args: Args) -> BufReader<File> {
+    let mut file_path = format!("inputs/day{}/part1.txt", args.day);
+    if args.sample {
+        file_path = format!("inputs/day{}/sample.txt", args.day);
+    }
+    let file = File::open(file_path).expect("Cannot open input file");
+    BufReader::new(file)
+}
+
 fn day1(args: Args) {
 
-    let file_path = format!("inputs/day{}/part{}.txt", args.day, args.part);
-    let file = File::open(file_path).expect("Cannot open input file");
-    let reader = BufReader::new(file);
+   let reader = get_input(args.clone());
 
     let mut all_elves = Vec::new();
     let mut all_elf_totals = Vec::new();
