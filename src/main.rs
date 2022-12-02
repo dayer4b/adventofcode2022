@@ -31,11 +31,76 @@ fn select(args: Args) {
     match args.day {
 
         1 => day1(args.clone()),
+        2 => day2(args.clone()),
         _ => println!("bad value for day"),
 
     }
 }
 
+fn day2_part1_values(code: &str) -> i32 {
+    match code {
+        "A X" => 1+3,
+        "B X" => 1+0,
+        "C X" => 1+6,
+
+        "A Y" => 2+6,
+        "B Y" => 2+3,
+        "C Y" => 2+0,
+
+        "A Z" => 3+0,
+        "B Z" => 3+6,
+        "C Z" => 3+3,
+        _ => 0,
+    }
+}
+
+fn day2_part2_values(code: &str) -> i32 {
+    match code {
+        "A X" => 0+3,
+        "B X" => 0+1,
+        "C X" => 0+2,
+
+        "A Y" => 3+1,
+        "B Y" => 3+2,
+        "C Y" => 3+3,
+
+        "A Z" => 6+2,
+        "B Z" => 6+3,
+        "C Z" => 6+1,
+        _ => 0,
+    }
+}
+
+
+fn day2(args: Args) {
+
+    // let mut file_path = format!("inputs/day{}/part{}.txt", args.day, args.part);
+    let mut file_path = format!("inputs/day{}/part1.txt", args.day);
+    if args.sample {
+        file_path = format!("inputs/day{}/sample.txt", args.day);
+    }
+    let file = File::open(file_path).expect("Cannot open input file");
+    let reader = BufReader::new(file);
+
+    let mut total:i32 = 0;
+
+    for line in reader.lines() {
+        if args.part == 1 {
+            let points = day2_part1_values(line.as_ref().expect("should be a string").as_ref());
+            println!("{} scores {} points",line.expect("should be a string"), points);
+            total += points;
+        }
+        else if args.part == 2 {
+
+            let points = day2_part2_values(line.as_ref().expect("should be a string").as_ref());
+            println!("{} scores {} points",line.expect("should be a string"), points);
+            total += points;
+        }
+    }
+
+    println!("The total score is: {}", total);
+
+}
 
 fn day1(args: Args) {
 
