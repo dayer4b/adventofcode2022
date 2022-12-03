@@ -2,6 +2,6 @@ build:
 	cargo build -r
 
 run:
-	cargo run
+	RUST_LOG=info cargo run
 
 

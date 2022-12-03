@@ -1,4 +1,5 @@
 use std::io::BufRead;
+use log::info;
 use adventofcode2022::*;
 
 pub fn day1(args: Args) {
@@ -42,8 +43,8 @@ pub fn day1(args: Args) {
         all_elf_totals.get(elf_quantity - 2).expect("there should be an integer here") +
         all_elf_totals.get(elf_quantity - 3).expect("there should be an integer here");
 
-    println!("top elf total: {:?}",all_elf_totals.get(elf_quantity - 1).expect("there should be an integer here"));
-    println!("top three elf totals: {:?}", top_three_elf_totals);
+    info!("top elf total: {:?}",all_elf_totals.get(elf_quantity - 1).expect("there should be an integer here"));
+    info!("top three elf totals: {:?}", top_three_elf_totals);
 
 
 }

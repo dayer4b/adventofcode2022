@@ -1,4 +1,6 @@
 use std::io::BufRead;
+use log::debug;
+use log::info;
 use adventofcode2022::*;
 
 fn day2_decode(code: &str, part: &u8) -> i32 {
@@ -48,11 +50,11 @@ pub fn day2(args: Args) {
 
     for line in reader.lines() {
         let points = day2_decode(line.as_ref().expect("should be a string").as_ref(), &args.part);
-        println!("{} scores {} points",line.expect("should be a string"), points);
+        debug!("{} scores {} points",line.expect("should be a string"), points);
         total += points;
     }
 
-    println!("The total score is: {}", total);
+    info!("The total score is: {}", total);
 
 }
 

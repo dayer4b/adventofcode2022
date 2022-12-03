@@ -1,14 +1,14 @@
 use adventofcode2022::*;
 use clap::Parser;
+use crate::day1::*;
+use crate::day2::*;
 
 mod day2;
 mod day1;
 
-pub use crate::day2::*;
-pub use crate::day1::*;
-
 fn main() {
 
+    env_logger::init();
     let args = Args::parse();
     dbg!(&args);
 
