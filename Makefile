@@ -1,10 +1,10 @@
 build:
-	cargo build -r
+	cargo build
 
 help:
-	cargo run -- -h
+	./target/debug/adventofcode2022 -h
 
 run:
-	RUST_LOG=info cargo run
+	RUST_LOG=info ./target/debug/adventofcode2022
 
 
