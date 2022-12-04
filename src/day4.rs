@@ -4,7 +4,6 @@ use log::info;
 use std::ops::RangeInclusive;
 use adventofcode2022::*;
 
-
 fn segment_to_range(segment: &str) -> RangeInclusive<i32> {
     let endpoints : Vec<&str> = segment.split("-").collect();
     let range_start = endpoints.get(0).expect("should be an integer").parse::<i32>().unwrap();
