@@ -111,6 +111,9 @@ pub fn day3(args: Args) {
     }
     else if args.part == 2 {
 
+        // this would be better probably:
+        // https://stackoverflow.com/questions/67008105/how-can-i-split-a-vector-into-smaller-vectors-of-size-n
+
         let mut this_group = Vec::new();
         let mut all_groups = Vec::new();
 
