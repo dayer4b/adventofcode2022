@@ -8,5 +8,7 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.0.29", features = ["derive"] }
 env_logger = "0.10.0"
+indexmap = "1.9.2"
 log = "0.4.17"
+regex = "1.7.0"
 substring = "1.4.5"
