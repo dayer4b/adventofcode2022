@@ -1,5 +1,6 @@
 use std::io::BufRead;
 use log::info;
+use itertools::Itertools;
 use adventofcode2022::*;
 
 
@@ -7,11 +8,15 @@ fn unique_sequence(size: usize, chars: &Vec<char>) {
     let slices = chars.windows(size);
 
     for (iteration, item) in slices.enumerate() {
-        let mut item_vec: Vec<char> = item.to_vec();
-        item_vec.sort();
-        item_vec.dedup();
+        let item_vec: Vec<char> = item.to_vec()
+            .into_iter()
+            .sorted()
+            .dedup()
+            .collect();
         if item_vec.len() == size {
-            info!("{} unique characters found complete after {} characters", item_vec.len(), iteration + size);
+            info!("{} unique characters found complete after {} characters",
+                item_vec.len(),
+                iteration + size);
             break;
         }
     }
